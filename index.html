@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>レシピ検索</title>
+  <link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+
+  <img src="タイトル.png" alt="">
+
+  
+  <ul id="recipe_list"></ul>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  
+  <script>
+
+
+
+ // リクエストを送るURL
+    
+ const url ='https://app.rakuten.co.jp/services/api/Recipe/CategoryList/20170426?applicationId=1013786832688735412';
+
+
+// $.getJSON(url, (data) => {
+//     console.log(data.result);
+// });
+
+// HTMLに表示
+const updateText = (data) => {
+    for (let i = 0; i < data.length; i++) {
+        const insertHtml = `
+            <li>
+              <h2>${data[i].categoryName}</h2>
+              <a href="${data[i].categoryUrl}">レシピ一覧へ＞</a>
+            </li>
+        `;
+        $('#recipe_list').append(insertHtml);
+    }
+}
+
+// <p>${data[i].large}</p>
+//                 <p>${data[i].categoryId}</p>
+
+
+// API取得
+$.getJSON(url, (data) => {
+    const recipes = data.result.large;
+    updateText(recipes);
+});
+
+
+
+
+
+  
+
+
+
+  </script>
+</body>
+
+</html>
